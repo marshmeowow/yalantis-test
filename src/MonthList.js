@@ -1,31 +1,25 @@
 import React,{useState, useEffect} from "react";
 import MonthCommponent from "./MonthComponent";
-import lodash from "lodash"
+import lodash from "lodash";
 
-const UserList = () => {
+const MonthList = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
 
-    // Note: the empty deps array [] means
-    // this useEffect will run once
-    // similar to componentDidMount()
-
-    async function f() {
+    async function loadData() {
         const response = await fetch("https://yalantis-react-school-api.yalantis.com/api/task0/users");
         const result = await response.json();
 
         setIsLoaded(true);
         const resWithMonth = result.map(item => Object.assign(item, {'month': new Date(item.dob).toLocaleString('en-us', {'month': 'long'})} ));
         const groupedByMonth = lodash.groupBy(resWithMonth, 'month');
-        console.log(groupedByMonth);
-        console.log(Object.keys(groupedByMonth));
         setItems(groupedByMonth);
     }
 
     useEffect( () => {
         try{
-        f()}
+        loadData()}
         catch (e) {
             setIsLoaded(true);
             setError(error);
@@ -43,7 +37,7 @@ const UserList = () => {
 
             <div>
                 {Object.keys(items).map(month => (
-                    <MonthCommponent month={month} values={items[month]}/>
+                    <MonthCommponent month={month} values={items[month]} key={month}/>
                 ))}
             </div>
 
@@ -51,4 +45,4 @@ const UserList = () => {
     }
 };
 
-export default UserList
+export default MonthList

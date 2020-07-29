@@ -1,12 +1,19 @@
-import React from "react";
-import styles from './MonthComponent.module.css'
+import React, {useState} from "react";
+import UserCommponent from "./userList";
 
 const MonthCommponent = (props) => {
-    const info = props.values.map( item => `${item.firstName} ${item.lastName} \n\n` )
+    const [hover, setHover] = useState(false);
+
     return(
-        <div className={styles.tooltip}>
+        <div
+             onMouseEnter={() => setHover(true)}
+             onMouseLeave={() => setHover(false)}
+        >
             {props.month}
-            <span className={styles.tooltiptext}>{info}</span>
+            <UserCommponent
+                hide={hover}
+                values = {props.values}
+            />
         </div>
 
     )

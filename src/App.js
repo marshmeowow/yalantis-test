@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import UserList from "./UserList";
+import MonthList from "./MonthList";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello World!</h1>
-      <UserList/>
+      <h1>Month list</h1>
+      <MonthList/>
     </div>
   );
 }
