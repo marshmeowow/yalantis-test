@@ -1,4 +1,6 @@
 import React,{useState, useEffect} from "react";
+import MonthCommponent from "./MonthComponent";
+import lodash from "lodash"
 
 const UserList = () => {
     const [error, setError] = useState(null);
@@ -14,7 +16,11 @@ const UserList = () => {
         const result = await response.json();
 
         setIsLoaded(true);
-        setItems(result);
+        const resWithMonth = result.map(item => Object.assign(item, {'month': new Date(item.dob).toLocaleString('en-us', {'month': 'long'})} ));
+        const groupedByMonth = lodash.groupBy(resWithMonth, 'month');
+        console.log(groupedByMonth);
+        console.log(Object.keys(groupedByMonth));
+        setItems(groupedByMonth);
     }
 
     useEffect( () => {
@@ -32,14 +38,15 @@ const UserList = () => {
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+
         return (
-            <ul>
-                {items.map(item => (
-                    <li key={item.id}>
-                        {item.firstName}
-                    </li>
+
+            <div>
+                {Object.keys(items).map(month => (
+                    <MonthCommponent month={month} values={items[month]}/>
                 ))}
-            </ul>
+            </div>
+
         );
     }
 };
