@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from "react";
 import MonthCommponent from "./MonthComponent";
+import style from './MonthComponent.module.css'
 import lodash from "lodash";
 
 const MonthList = () => {
@@ -33,9 +34,10 @@ const MonthList = () => {
         return <div>Loading...</div>;
     } else {
 
-        return (
 
-            <div>
+
+        return (
+            <div className={style.monthList} style={{color:'red'}}>
                 {Object.keys(items).map(month => (
                     <MonthCommponent month={month} values={items[month]} key={month}/>
                 ))}
