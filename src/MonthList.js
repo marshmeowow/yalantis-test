@@ -37,7 +37,7 @@ const MonthList = () => {
 
 
         return (
-            <div className={style.monthList} style={{color:'red'}}>
+            <div className={style.monthList} >
                 {Object.keys(items).map(month => (
                     <MonthCommponent month={month} values={items[month]} key={month}/>
                 ))}

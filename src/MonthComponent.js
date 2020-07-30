@@ -4,8 +4,6 @@ import UserCommponent from "./userList";
 const MonthCommponent = (props) => {
     const [hover, setHover] = useState(false);
 
-    console.log(props.values)
-
     return(
         <div
              onMouseEnter={() => setHover(true)}
